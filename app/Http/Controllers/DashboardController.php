@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,7 @@ class DashboardController extends Controller
      */
     public function dashboard()
     {
-        $users = User::all();
+        $users = User::all()->except(Auth::id());
         return view('dashboard', compact('users'));
         
     }
