@@ -21,5 +21,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'dashboard'] )
         ->middleware(['auth'])
         ->name('dashboard');
+Route::post('send', [DashboardController::class, 'sendMessage'] )
+        ->middleware(['auth'])
+        ->name('sendMessage');
 
 require __DIR__.'/auth.php';
