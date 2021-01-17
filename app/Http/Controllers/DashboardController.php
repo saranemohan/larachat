@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -49,6 +50,8 @@ class DashboardController extends Controller
         $message->receiver_id = $request->receiver_id;
         $message->message = $request->message;
         $message->save();
+
+        broadcast(new MessageSent($message))->toOthers();
         return redirect()->back();
     }
 }
