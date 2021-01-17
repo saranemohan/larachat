@@ -28,7 +28,7 @@
                             <h1 class="text-xl uppercase">{{$receiver->name}}</h1>
                             <p class="text-gray-400">{{$receiver->email}}</p>
                         </div>
-                        <div>
+                        <div id="message_area">
 
                             @foreach ($messages as $message)
                                 @if($receiver->id==$message->receiver_id)
@@ -46,7 +46,8 @@
                         <form action="{{route("sendMessage")}}" method="post">
                             @csrf
                         <div class="grid grid-cols-6 gap-4 mt-4">
-                            <input type="hidden" name="receiver_id" value="{{$receiver->id}}">
+                            <input type="hidden" name="receiver_id" id="receiver_id" value="{{$receiver->id}}">
+                            <input type="hidden" name="sender_id" id="sender_id" value="{{auth()->id()}}">
                             <div class="col-span-5">
                                 <x-input id="message" class="w-full" type="text" name="message" placeholder="Message" :value="old('message')" autofocus />
                             </div>
@@ -61,4 +62,12 @@
         </div>
 
     </div>
+
+    <template id="message_template">
+        <x-chat-message class="justify-self-start ">
+            #message
+        </x-chat-message>
+    </template>
+
+
 </x-app-layout>
